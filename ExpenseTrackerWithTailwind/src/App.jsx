@@ -1,7 +1,13 @@
 import React from "react";
-
+import Form from "./Components/Form";
 const App = () => {
-  return <h1 className="text-2xl font-medium text-red-400">Hello World</h1>;
+  return (
+    <div className="grid place-items-center bg-slate-950 w-screen h-screen">
+      <div className="max-w-2xl w-full bg-slate-500  p-3 rounded-md">
+        <Form />
+      </div>
+    </div>
+  );
 };
 
 export default App;
