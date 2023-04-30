@@ -1,20 +1,28 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useRef, useContext } from "react";
+//Form Context getting imported to become Provider
+import FormData from "../context/FormData";
 const Form = () => {
   const [visibility, setVisibility] = useState(false);
-  const expensename = useRef();
-  const expenseprice = useRef();
-  const expensedate = useRef();
+  //Context Usage for New Expense Addition
+  const dataPushing = useContext(FormData);
+  //Creating Refs to capture users filled Data
+  let expensename = useRef();
+  let expenseprice = useRef();
+  let expensedate = useRef();
   const changeVisibility = () => {
     setVisibility(!visibility);
   };
   const formSubmissionHandler = (event) => {
     event.preventDefault();
-    console.log(expensename.current.value);
-    console.log(expenseprice.current.value);
-    let date = expensedate.current.value;
-    date = new Date(date);
-    console.log(date.getMonth());
+    let newExpenseItem = {
+      title: expensename.current.value,
+      price: expenseprice.current.value,
+      date: new Date(expensedate.current.value),
+    };
+    dataPushing.addData(newExpenseItem);
+    expensename.current.value = "";
+    expenseprice.current.value = "";
+    expensedate.current.value = "";
   };
   return (
     <>
@@ -70,7 +78,7 @@ const Form = () => {
             </div>
             <div className="text-right my-4">
               <button
-                className="text-slate-300 mr-4 font-normal"
+                className="text-slate-300 mr-4 font-normal hover:text-slate-200"
                 onClick={changeVisibility}
               >
                 Cancel
